@@ -1,0 +1,88 @@
+import "./App.css";
+import FormTable from "./component/TableForm";
+import React, { useEffect, useState, useRef } from "react";
+import GoodScore from "./component/GoodScore";
+import BadScore from "./component/BadScore";
+import Encourage from "./component/Encourage";
+import good from "./good.jpg";
+import unlike from "./unlike.png";
+import tenor from "./tenor.gif";
+import ten from "./ten.gif";
+import giphy from "./giphy.gif";
+import wellmade from "./wellmade.gif";
+
+function App() {
+  const [val, setVal] = useState("");
+  const [qNum, setQNum] = useState({ f: 0, s: 0 });
+  const [goodScore, setGoodScore] = useState(0);
+  const [badScore, setBadScore] = useState(0);
+  const [score, setScore] = useState(null);
+  const [count, setCount] = useState(0);
+  const [imgSrc, setImgSrc] = useState();
+  const [badJobIndex, setBadJobIndex] = useState(0);
+  const [goodJobIndex, setGoodJobIndex] = useState(0);
+
+  const badJobPhotos = [tenor, unlike, ten];
+  const goodJobPhotos = [giphy, good, wellmade];
+
+  const rand = () => {
+    setImgSrc();
+    setQNum({
+      f: Math.floor(Math.random() * 10) + 1,
+      s: Math.floor(Math.random() * 10) + 1,
+    });
+  };
+
+  useEffect(() => {
+    rand(10);
+  }, []);
+
+  const changeHandler = (e) => {
+    setVal(e.target.value);
+  };
+
+  const clickHandler = (e) => {
+    e.preventDefault();
+    // inputRef.current.focus();
+    // inputRef.current.focus();
+
+    if (qNum.f * qNum.s === parseInt(val)) {
+      rand();
+      setCount(count + 1);
+      setScore(true);
+      setGoodScore(goodScore + 1);
+      setImgSrc(goodJobPhotos[goodJobIndex]);
+      setGoodJobIndex(goodJobIndex + 1);
+    } else {
+      setScore(false);
+      setCount(count + 1);
+      setBadScore(badScore + 1);
+      setImgSrc(badJobPhotos[badJobIndex]);
+      setBadJobIndex(badJobIndex + 1);
+    }
+    setVal("");
+    badJobIndex >= badJobPhotos.length - 1 && setBadJobIndex(0);
+    goodJobIndex >= goodJobPhotos.length - 1 && setGoodJobIndex(0);
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <FormTable
+          num1={qNum.f}
+          num2={qNum.s}
+          onChange={changeHandler}
+          onClick={clickHandler}
+          val={val}
+        />
+        <div className="footer">
+          <GoodScore good={goodScore} />
+          <Encourage result={score} src={imgSrc} />
+          <BadScore bad={badScore} />
+        </div>
+      </header>
+    </div>
+  );
+}
+
+export default App;
