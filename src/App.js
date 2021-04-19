@@ -84,15 +84,17 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div className=" bottom">
-          <FormTable
-            num1={qNum.f}
-            num2={qNum.s}
-            onChange={changeHandler}
-            onClick={clickHandler}
-            val={val}
-          />
-          <Encourage result={answer.isRight} src={answer.imgSrc} />
+        <div className="blur">
+          <div className=" bottom">
+            <FormTable
+              num1={qNum.f}
+              num2={qNum.s}
+              onChange={changeHandler}
+              onClick={clickHandler}
+              val={val}
+            />
+            <Encourage result={answer.isRight} src={answer.imgSrc} />
+          </div>
         </div>
 
         <div className="top">
