@@ -10,13 +10,19 @@ import tenor from "./tenor.gif";
 import ten from "./ten.gif";
 import giphy from "./giphy.gif";
 import wellmade from "./wellmade.gif";
+import mickey from "./mickey.gif";
+import mike from "./mike.gif";
+import nine from "./9.gif";
+import ci from "./CIl2.gif";
+import dis from "./dis.gif";
+import scoop from "./scoop.gif";
 
 // useReducer
-const badJobPhotos = [tenor, unlike, ten];
-const goodJobPhotos = [giphy, good, wellmade];
+const badJobPhotos = [tenor, unlike, ten, ci, dis, scoop];
+const goodJobPhotos = [giphy, good, wellmade, mickey, mike, nine];
 
 const initialState = {
-  isRight: null,
+  showImg: false,
   tScore: 0,
   fScore: 0,
   imgSrc: "",
@@ -27,16 +33,21 @@ function reducer(answer, action) {
     case "right answer":
       return {
         ...answer,
-        isRight: true,
+        showImg: true,
         tScore: answer.tScore + 1,
         imgSrc: goodJobPhotos[action.payLoad.index],
       };
     case "wrong answer":
       return {
         ...answer,
-        isRight: false,
+        showImg: true,
         fScore: answer.fScore + 1,
         imgSrc: badJobPhotos[action.payLoad.index],
+      };
+    case "hide img":
+      return {
+        ...answer,
+        showImg: false,
       };
   }
 }
@@ -60,6 +71,12 @@ function App() {
     rand(10);
   }, []);
 
+  useEffect(() => {
+    if (answer.showImg === true) {
+      setTimeout(() => dispatch({ type: "hide img" }), 3000);
+    }
+  }, [answer.showImg]);
+
   const changeHandler = (e) => {
     setVal(e.target.value);
   };
@@ -78,29 +95,45 @@ function App() {
       setIndex(index + 1);
     }
     setVal("");
-    index >= badJobPhotos.length - 1 && setIndex(0);
+    index >= goodJobPhotos.length - 1 && setIndex(0);
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className="blur">
-          <div className=" bottom">
-            <FormTable
-              num1={qNum.f}
-              num2={qNum.s}
-              onChange={changeHandler}
-              onClick={clickHandler}
-              val={val}
-            />
-            <Encourage result={answer.isRight} src={answer.imgSrc} />
-          </div>
-        </div>
-
         <div className="top">
           <GoodScore good={answer.tScore} />
 
           <BadScore bad={answer.fScore} />
+        </div>
+        <div className="section">
+          <div
+            className="circle one"
+            style={{ backgroundColor: answer.backgroundColor }}
+          ></div>
+          <div
+            className="circle  two"
+            style={{ backgroundColor: answer.backgroundColor }}
+          ></div>
+          <div
+            className="circle three"
+            style={{ backgroundColor: answer.backgroundColor }}
+          ></div>
+
+          <div className=" bottom">
+            {answer.showImg === false ? (
+              <FormTable
+                num1={qNum.f}
+                num2={qNum.s}
+                onfocus={() => dispatch({ type: "defult color" })}
+                onChange={changeHandler}
+                onClick={clickHandler}
+                val={val}
+              />
+            ) : (
+              <Encourage src={answer.imgSrc} />
+            )}
+          </div>
         </div>
       </header>
     </div>

@@ -1,13 +1,9 @@
 import React from "react";
 
-function Encourage({ result, src }) {
+function Encourage({ src }) {
   return (
     <div>
-      {result === null ? (
-        <p className="encourage">press to start ...</p>
-      ) : (
-        <img className="img" src={src} alt="result" />
-      )}
+      <img className="img" src={src} alt="result" />
     </div>
   );
 }
