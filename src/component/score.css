@@ -1,8 +1,8 @@
 .top {
+  max-width: 800px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: 5px;
-  width: 60%;
+  /* width: 60%; */
   padding: 15px;
   margin: 5px auto;
 }
@@ -15,11 +15,11 @@
 }
 
 .good {
-  background-color: rgb(47, 90, 47);
+  background-color: #558754fe;
   border-radius: 40px 0px 0px 0px;
 }
 
 .bad {
-  background-color: #6d312e;
+  background-color: #ad2327c0;
   border-radius: 0px 0px 40px 0px;
 }

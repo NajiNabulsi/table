@@ -5,10 +5,8 @@
 .App-header {
   background-color: #555988;
   min-height: 100vh;
-  width: 100%;
-  align-items: center;
   color: white;
-  padding: 0;
+  padding: 30px;
 }
 
 .img {
@@ -27,11 +25,12 @@
   }
 }
 
-.bottom {
-  display: flex;
-  flex-direction: row;
-  justify-items: center;
-  justify-content: space-around;
-  width: 60%;
-  margin: 20px auto 0px;
+.copyRight {
+  position: fixed;
+  width: 100%;
+  margin: auto;
+  /* left: 10px; */
+  bottom: 5px;
+  text-align: center;
+  color: #f59395d3;
 }

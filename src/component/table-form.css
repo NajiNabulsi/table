@@ -1,23 +1,23 @@
-.section {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  margin-top: 50px;
-  box-sizing: border-box;
-}
-
 .table-form {
   display: flex;
-  /* margin-top: 70px; */
+  flex-direction: column;
   align-items: center;
   justify-items: center;
   justify-content: baseline;
 }
 
 .table-form div {
-  margin-left: 20px;
-  width: 50px;
-  /* height: 50px; */
+  display: flex;
+  margin: 3px;
+  padding: 20px;
+}
+
+.section_question,
+.section_answer {
+  font-size: 1.2rem;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
 }
 
 .table-form input {
@@ -27,26 +27,28 @@
   margin-left: 15px;
   font-size: 1.3rem;
   text-align: center;
+  border: none;
+  border-radius: 15px 0px 0px 0px;
 }
 
 .table-form button {
   width: 80px;
-  height: 80px;
-  margin-left: 15px;
+  height: 51px;
+  /* margin-left: 15px; */
   border: none;
-  border-radius: 50%;
+  border-radius: 0px 0px 15px 0px;
+  background-color: #cf66b5d3;
+  color: white;
 }
 
 .bottom {
   display: flex;
   flex-direction: row;
-  /* align-items: flex-start; */
   justify-items: center;
   justify-content: space-around;
-  width: 40%;
+  max-width: 800px;
   height: 300px;
   margin: 25px auto 0px;
-  /* background-color: white; */
   color: black;
   position: relative;
   z-index: 2;
@@ -59,8 +61,6 @@
   filter: blur(0.5px);
   border: 1px solid black;
   position: absolute;
-  /* top: 0px;
-  bottom: 0px; */
   width: 100%;
   height: 100%;
   z-index: -2;

@@ -4,23 +4,14 @@ import FormTable from "./component/TableForm";
 import GoodScore from "./component/GoodScore";
 import BadScore from "./component/BadScore";
 import Encourage from "./component/Encourage";
-import good from "./good.jpg";
-import unlike from "./unlike.png";
-import tenor from "./tenor.gif";
-import ten from "./ten.gif";
-import giphy from "./giphy.gif";
-import wellmade from "./wellmade.gif";
-import mickey from "./mickey.gif";
-import mike from "./mike.gif";
-import nine from "./9.gif";
-import ci from "./CIl2.gif";
-import dis from "./dis.gif";
-import scoop from "./scoop.gif";
+
+import useSound from "use-sound";
+import boopSfx from "./sounds/applause3.wav";
+import boo from "./sounds/boo2.wav";
+
+import { badJobPhotos, goodJobPhotos } from "./images/imges";
 
 // useReducer
-const badJobPhotos = [tenor, unlike, ten, ci, dis, scoop];
-const goodJobPhotos = [giphy, good, wellmade, mickey, mike, nine];
-
 const initialState = {
   showImg: false,
   tScore: 0,
@@ -60,12 +51,21 @@ function App() {
 
   const [index, setIndex] = useState(0);
 
+  const [playGood] = useSound(boopSfx, { volume: 0.5 });
+  const [playBad] = useSound(boo, { volume: 1 });
+
   const rand = () => {
     setQNum({
       f: Math.floor(Math.random() * 10) + 1,
       s: Math.floor(Math.random() * 10) + 1,
     });
   };
+
+  // const BoopButton = () => {
+  //   const [play] = useSound(boopSfx);
+
+  //   return <button onClick={play}>Boop!</button>;
+  // };
 
   useEffect(() => {
     rand(10);
@@ -86,12 +86,12 @@ function App() {
 
     if (qNum.f * qNum.s === parseInt(val)) {
       rand();
-
+      playGood();
       dispatch({ type: "right answer", payLoad: { index: index } });
       setIndex(index + 1);
     } else {
       dispatch({ type: "wrong answer", payLoad: { index: index } });
-
+      playBad();
       setIndex(index + 1);
     }
     setVal("");
@@ -102,38 +102,31 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className="top">
+          {/* audio */}
+
+          {/* audio */}
+
           <GoodScore good={answer.tScore} />
 
           <BadScore bad={answer.fScore} />
         </div>
-        <div className="section">
-          <div
-            className="circle one"
-            style={{ backgroundColor: answer.backgroundColor }}
-          ></div>
-          <div
-            className="circle  two"
-            style={{ backgroundColor: answer.backgroundColor }}
-          ></div>
-          <div
-            className="circle three"
-            style={{ backgroundColor: answer.backgroundColor }}
-          ></div>
 
-          <div className=" bottom">
-            {answer.showImg === false ? (
-              <FormTable
-                num1={qNum.f}
-                num2={qNum.s}
-                onfocus={() => dispatch({ type: "defult color" })}
-                onChange={changeHandler}
-                onClick={clickHandler}
-                val={val}
-              />
-            ) : (
-              <Encourage src={answer.imgSrc} />
-            )}
-          </div>
+        <div className=" bottom">
+          {answer.showImg === false ? (
+            <FormTable
+              num1={qNum.f}
+              num2={qNum.s}
+              onfocus={() => dispatch({ type: "defult color" })}
+              onChange={changeHandler}
+              onClick={clickHandler}
+              val={val}
+            />
+          ) : (
+            <Encourage src={answer.imgSrc} />
+          )}
+        </div>
+        <div className="copyRight">
+          <p>Van Naji tot mijn geliefde zoon Zaid AL Nabulsi</p>
         </div>
       </header>
     </div>
